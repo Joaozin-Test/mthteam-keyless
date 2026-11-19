@@ -7,293 +7,528 @@
 <title>MTH PROXY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#050507;--fg:#f2f2f4;--mut:rgba(255,255,255,.52);--mut2:rgba(255,255,255,.3);
-  --line:rgba(255,255,255,.1);--card:rgba(255,255,255,.028);
-  --accent:#2e8fff;--accentH:#53a4ff;--danger:#ff5a5f;--ok:#2fd27a;
+  --bg:#050507;
+  --fg:#f2f2f4;
+  --mut:rgba(255,255,255,.55);
+  --mut2:rgba(255,255,255,.32);
+  --line:rgba(255,255,255,.1);
+  --card:rgba(255,255,255,.03);
+  --accent:#2e8fff;
+  --accentH:#53a4ff;
+  --ok:#2fd27a;
+  --warn:#ffc062;
   --mono:"Space Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 html,body{height:100%}
-body{background:var(--bg);color:var(--fg);font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden}
-.wrap{max-width:410px;margin:0 auto;padding:28px 22px 110px;min-height:100vh;position:relative;z-index:2}
-.hidden{display:none!important}
-.mono{font-family:var(--mono)}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.wrap{
+  max-width:420px;
+  margin:0 auto;
+  padding:24px 20px 120px;
+  min-height:100vh;
+  position:relative;
+  z-index:2;
+}
 
-/* ───── fundo ambiente ───── */
-.stage{position:fixed;inset:0;z-index:0;opacity:.34;pointer-events:none;overflow:hidden}
-.blob{position:absolute;border-radius:50%;filter:blur(48px);transition:margin .45s ease-out;animation:float 32s infinite alternate ease-in-out;will-change:transform}
-.b1{width:280px;height:280px;left:-14%;top:-6%;background:radial-gradient(circle,#2663ad,transparent 68%);animation-duration:31s}
-.b2{width:240px;height:240px;right:-16%;top:24%;background:radial-gradient(circle,#1b4a84,transparent 68%);animation-duration:38s;animation-delay:-12s}
-.b3{width:250px;height:250px;left:-12%;bottom:3%;background:radial-gradient(circle,#1d3f72,transparent 68%);animation-duration:35s;animation-delay:-20s}
-.b4{width:220px;height:220px;right:-12%;bottom:-9%;background:radial-gradient(circle,#255790,transparent 68%);animation-duration:28s;animation-delay:-7s}
-@keyframes float{0%{transform:translate(0,0)}50%{transform:translate(5vw,4vh)}100%{transform:translate(-4vw,-3vh)}}
+/* fundo */
+.stage{position:fixed;inset:0;z-index:0;opacity:.3;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(50px);animation:float 30s infinite alternate ease-in-out}
+.b1{width:260px;height:260px;left:-12%;top:-8%;background:radial-gradient(circle,#2663ad,transparent 70%)}
+.b2{width:220px;height:220px;right:-14%;top:30%;background:radial-gradient(circle,#1b4a84,transparent 70%);animation-delay:-10s}
+.b3{width:240px;height:240px;left:-10%;bottom:5%;background:radial-gradient(circle,#1d3f72,transparent 70%);animation-delay:-18s}
+@keyframes float{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(4vw,3vh)}
+  100%{transform:translate(-3vw,-2vh)}
+}
 
-/* ───── header ───── */
-.hdr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--line)}
-.hdrL{display:flex;align-items:center;gap:11px;min-width:0}
-.hdrL img{width:32px;height:32px;object-fit:contain}
-.hdrL b{font-weight:800;font-size:15px;letter-spacing:.6px}
-.hdrR{display:flex;align-items:center;gap:13px;flex:0 0 auto}
-.khint{font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--mut);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* header */
+.hdr{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-bottom:16px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:8px;
+}
+.hdrL{display:flex;align-items:center;gap:10px}
+.hdrL img{width:30px;height:30px;object-fit:contain}
+.hdrL b{font-weight:700;font-size:15px;letter-spacing:.4px}
+.badge{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:1.5px;
+  color:var(--mut2);
+  text-transform:uppercase;
+}
 
-/* ───── seções / rows ───── */
-.sect{margin-top:30px}
-.lbl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--mut2);margin:0 1px 8px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 1px;border-bottom:1px solid var(--line)}
-.row:last-of-type{border-bottom:none}
-.rn{font-size:15px;font-weight:500}
-.rd{font-size:12px;color:var(--mut);margin-top:3px}
-.sw{position:relative;width:48px;height:28px;flex:0 0 48px;border-radius:999px;background:rgba(255,255,255,.14);cursor:pointer;transition:background .25s}
-.sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .26s cubic-bezier(.4,1.2,.5,1);box-shadow:0 1px 3px rgba(0,0,0,.45)}
-.sw.on{background:var(--accent)}
+/* seções */
+.sect{margin-top:28px}
+.lbl{
+  display:block;
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--mut2);
+  margin-bottom:10px;
+}
+
+/* cards de função */
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px 16px 14px;
+  margin-bottom:12px;
+}
+.card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.card-title{font-size:15px;font-weight:600}
+.card-desc{font-size:12.5px;color:var(--mut);margin-top:3px;line-height:1.4}
+
+/* toggle */
+.sw{
+  position:relative;
+  width:48px;
+  height:28px;
+  flex:0 0 48px;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+  cursor:pointer;
+  transition:background .22s;
+}
+.sw::after{
+  content:"";
+  position:absolute;
+  top:3px;left:3px;
+  width:22px;height:22px;
+  border-radius:50%;
+  background:#fff;
+  transition:left .24s cubic-bezier(.4,1.2,.5,1);
+  box-shadow:0 1px 3px rgba(0,0,0,.4);
+}
+.sw.on{background:var(--accent);box-shadow:0 0 14px rgba(46,143,255,.4)}
 .sw.on::after{left:23px}
 .sw.busy{opacity:.5;pointer-events:none}
-.parts{max-height:0;opacity:0;overflow:hidden;transition:max-height .32s ease,opacity .25s,padding .3s}
-.parts.open{max-height:160px;opacity:1;padding:6px 0 14px}
-.pillrow{display:flex;gap:7px}
-.cabnote{max-height:0;opacity:0;overflow:hidden;transition:max-height .28s ease,opacity .22s}
-.cabnote.on{max-height:90px;opacity:1}
-.cabnote i{display:block;margin-top:11px;font-style:normal;font-size:11.5px;line-height:1.5;color:#ffc062;background:rgba(255,176,64,.08);border:1px solid rgba(255,176,64,.26);border-radius:10px;padding:9px 12px}
-.pill{flex:1;text-align:center;padding:12px 0;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;color:var(--mut);background:rgba(255,255,255,.045);transition:.18s}
-.pill:hover{color:var(--fg)}
-.pill.act{color:#fff;background:var(--accent)}
 
-/* ───── conectar ───── */
-.step{display:flex;gap:14px;padding:17px 1px;border-bottom:1px solid var(--line)}
-.step:last-child{border-bottom:none}
-.num{width:26px;height:26px;flex:0 0 26px;border-radius:50%;border:1px solid var(--line);color:var(--fg);font-family:var(--mono);font-size:11px;font-weight:700;display:grid;place-items:center;margin-top:1px}
-.st-b{min-width:0;flex:1}
-.st-b h3{font-size:14.5px;font-weight:600;margin-bottom:4px}
-.st-b p{font-size:13px;color:var(--mut);line-height:1.6}
-.st-b b{color:var(--fg);font-weight:500}
-.codebox{margin-top:11px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;
-  font:11.5px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#aebfd4;word-break:break-all;max-height:106px;overflow:auto}
-.act2{display:flex;gap:9px;margin-top:11px;flex-wrap:wrap}
-.mini{flex:1;min-width:132px;padding:12px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--line);
-  background:transparent;color:var(--fg);display:flex;align-items:center;justify-content:center;gap:8px;transition:.16s;text-decoration:none}
-.mini:hover{border-color:rgba(255,255,255,.24);background:rgba(255,255,255,.03)}
-.mini.ok{color:var(--ok);border-color:rgba(47,210,122,.4)}
-.mini svg{width:16px;height:16px;color:var(--mut)}.mini.ok svg{color:var(--ok)}
-.connect{text-align:center;padding:18px 4px 6px}
-.cicon img{width:62px;height:62px;object-fit:contain;filter:drop-shadow(0 6px 22px rgba(46,143,255,.4));animation:glow 3.8s ease-in-out infinite}
-.ctitle{font-size:17px;font-weight:700;margin:16px 0 8px}
-.cdesc{font-size:13.5px;color:var(--mut);line-height:1.65;max-width:300px;margin:0 auto 22px}
-.cdesc b{color:var(--fg);font-weight:600}
-.cbtn{max-width:300px;margin:0 auto}
-.cfoot{margin-top:15px;display:flex;align-items:center;justify-content:center;gap:11px}
-.flink2{font-family:var(--mono);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);background:none;border:none;cursor:pointer;text-decoration:none;transition:color .2s;padding:2px}
-.flink2:hover{color:var(--fg)}
-.cfoot .sep{color:var(--mut2)}
+/* dropdown */
+.dropdown-wrap{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid var(--line);
+  display:none;
+}
+.dropdown-wrap.open{display:block}
+.dropdown-label{
+  font-size:12px;
+  color:var(--mut);
+  margin-bottom:8px;
+}
+.select{
+  width:100%;
+  appearance:none;
+  -webkit-appearance:none;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--line);
+  border-radius:10px;
+  color:var(--fg);
+  font-size:14px;
+  font-family:inherit;
+  padding:12px 40px 12px 14px;
+  outline:none;
+  cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  transition:border-color .2s;
+}
+.select:focus{border-color:var(--accent)}
+.select option{background:#111;color:#fff}
 
-/* botao abrir free fire */
-.ffwrap{position:fixed;left:0;right:0;bottom:calc(86px + env(safe-area-inset-bottom));z-index:8;display:flex;justify-content:center;padding:0 20px;pointer-events:none;animation:bob 3.4s ease-in-out infinite}
-.ffbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:330px;padding:16px 22px;border-radius:999px;white-space:nowrap;text-decoration:none;cursor:pointer;
-  background:linear-gradient(92deg,var(--accent),#5aa8ff);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  box-shadow:0 14px 36px rgba(46,143,255,.5),0 3px 10px rgba(0,0,0,.45);
-  opacity:0;transform:translateY(26px) scale(.9);pointer-events:none;
-  transition:opacity .4s ease,transform .45s cubic-bezier(.2,1,.4,1.25)}
-.ffbtn.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
-.ffbtn:active{transform:translateY(0) scale(.96)}
-.ffbtn svg{width:17px;height:17px}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.note{
+  margin-top:10px;
+  font-size:12px;
+  line-height:1.5;
+  color:var(--warn);
+  background:rgba(255,176,64,.08);
+  border:1px solid rgba(255,176,64,.25);
+  border-radius:10px;
+  padding:10px 12px;
+  display:none;
+}
+.note.show{display:block}
 
-/* ───── bottom nav ───── */
-.nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;background:rgba(5,5,7,.78);backdrop-filter:blur(18px);
-  border-top:1px solid var(--line);padding:10px 0 calc(10px + env(safe-area-inset-bottom))}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px;cursor:pointer;color:var(--mut2);
-  font-family:var(--mono);font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;transition:color .2s}
+/* conectar */
+.connect{
+  text-align:center;
+  padding:12px 4px 6px;
+}
+.connect img{
+  width:56px;height:56px;
+  object-fit:contain;
+  filter:drop-shadow(0 6px 18px rgba(46,143,255,.35));
+}
+.connect h3{font-size:17px;font-weight:700;margin:14px 0 8px}
+.connect p{
+  font-size:13.5px;
+  color:var(--mut);
+  line-height:1.6;
+  max-width:300px;
+  margin:0 auto 20px;
+}
+.connect p b{color:var(--fg);font-weight:600}
+.btn{
+  width:100%;
+  max-width:300px;
+  margin:0 auto;
+  display:block;
+  padding:15px;
+  border:none;
+  border-radius:11px;
+  cursor:pointer;
+  background:var(--accent);
+  color:#fff;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  transition:background .2s,transform .12s,box-shadow .25s;
+}
+.btn:hover{background:var(--accentH);box-shadow:0 10px 30px rgba(46,143,255,.3)}
+.btn:active{transform:scale(.98)}
+.btn.busy{opacity:.6;pointer-events:none}
+.links{
+  margin-top:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+.links a,.links button{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:var(--mut);
+  background:none;
+  border:none;
+  cursor:pointer;
+  text-decoration:none;
+  padding:2px;
+}
+.links a:hover,.links button:hover{color:var(--fg)}
+.links .sep{color:var(--mut2)}
+
+/* nav */
+.nav{
+  position:fixed;
+  left:0;right:0;bottom:0;
+  z-index:5;
+  display:flex;
+  background:rgba(5,5,7,.82);
+  backdrop-filter:blur(16px);
+  border-top:1px solid var(--line);
+  padding:10px 0 calc(10px + env(safe-area-inset-bottom));
+}
+.tab{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  padding:4px;
+  cursor:pointer;
+  color:var(--mut2);
+  font-family:var(--mono);
+  font-size:9.5px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  transition:color .2s;
+}
 .tab svg{width:20px;height:20px}
 .tab.on{color:var(--fg)}
 
-.toast{position:fixed;left:50%;bottom:94px;transform:translateX(-50%) translateY(14px);z-index:30;opacity:0;pointer-events:none;
-  background:#17171b;border:1px solid var(--line);color:var(--fg);padding:10px 16px;border-radius:11px;font-size:13px;font-weight:500;transition:.24s}
+/* toast */
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:100px;
+  transform:translateX(-50%) translateY(12px);
+  z-index:30;
+  opacity:0;
+  pointer-events:none;
+  background:#17171b;
+  border:1px solid var(--line);
+  color:var(--fg);
+  padding:10px 16px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:500;
+  transition:.22s;
+}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.toast.e{color:var(--danger)}
+.toast.err{color:#ff6b6b}
 
-/* ───── animações ───── */
-@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@keyframes sheen{0%,52%{transform:translateX(-240%) skewX(-20deg)}100%{transform:translateX(560%) skewX(-20deg)}}
-@keyframes glow{0%,100%{filter:drop-shadow(0 10px 26px rgba(46,143,255,.3))}50%{filter:drop-shadow(0 12px 42px rgba(46,143,255,.58))}}
-.btn{width:100%;padding:16px;border:none;border-radius:11px;cursor:pointer;background:var(--accent);color:#fff;
-  font-family:"Inter",sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  transition:letter-spacing .35s,background .25s,transform .12s,box-shadow .35s;position:relative;overflow:hidden}
-.btn:hover{letter-spacing:4px;background:var(--accentH);box-shadow:0 12px 40px rgba(46,143,255,.3)}
-.btn:active{transform:scale(.99)}
-.btn[disabled]{opacity:.55;cursor:default;letter-spacing:2px}
-.btn.load{color:transparent;position:relative}
-.btn.load::after{content:"";position:absolute;inset:0;margin:auto;width:17px;height:17px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.btn::before{content:"";position:absolute;top:0;left:0;width:45%;height:100%;pointer-events:none;
-  background:linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent);transform:translateX(-240%) skewX(-20deg);animation:sheen 4.6s ease-in-out infinite}
-.sw.on{box-shadow:0 0 16px rgba(46,143,255,.45)}
-#view-app:not(.hidden) .hdr{animation:rise .55s both}
-#tab-func:not(.hidden) .lbl{animation:rise .5s .03s both}
-#tab-func:not(.hidden) .row{animation:rise .55s both}
-#tab-func:not(.hidden) .row:nth-of-type(1){animation-delay:.12s}
-#tab-func:not(.hidden) .parts{animation:rise .55s .17s both}
-#tab-func:not(.hidden) .row:nth-of-type(3){animation-delay:.22s}
-#tab-tut:not(.hidden) .lbl{animation:rise .5s .03s both}
-#tab-tut:not(.hidden) .connect{animation:rise .5s .04s both}
-.row{transition:background .18s}.row:active{background:rgba(255,255,255,.03)}
-.pill{transition:.18s,transform .12s}.pill:active{transform:scale(.96)}
-.nav .tab{transition:color .2s,transform .12s}.nav .tab:active{transform:scale(.92)}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
 
-<div class="stage" id="stage" aria-hidden="true">
-  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+<div class="stage" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
 </div>
 
 <div class="wrap">
 
-  <!-- APP (sem login) -->
-  <div id="view-app">
-    <div class="hdr">
-      <div class="hdrL"><img src="logo.png?v=b160fae2" alt=""><b>MTH PROXY</b></div>
-      <div class="hdrR"><span class="khint" id="khint">SEM KEY</span></div>
+  <div class="hdr">
+    <div class="hdrL">
+      <img src="logo.png" alt="">
+      <b>MTH PROXY</b>
     </div>
-
-    <!-- FUNÇÕES -->
-    <section id="tab-func">
-      <div class="sect">
-        <span class="lbl">Funções</span>
-        <div class="row">
-          <div><div class="rn">Aim Collider</div><div class="rd">região de acerto da mira</div></div>
-          <div class="sw" id="sw_aim"></div>
-        </div>
-        <div class="parts" id="parts">
-          <div class="pillrow">
-            <div class="pill" data-p="0">Cabeça</div>
-            <div class="pill" data-p="1">Pescoço</div>
-            <div class="pill" data-p="2">Peito</div>
-          </div>
-          <div class="cabnote" id="cabnote"><i>⚠ A opção Cabeça está dando dano fake em inimigo parado</i></div>
-        </div>
-        <div class="row">
-          <div><div class="rn">ESP Moço</div><div class="rd">marca os inimigos no mapa</div></div>
-          <div class="sw" id="sw_esp"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONECTAR -->
-    <section id="tab-tut" class="hidden">
-      <div class="sect">
-        <span class="lbl">Conectar</span>
-        <div class="connect">
-          <div class="cicon"><img src="logo.png?v=b160fae2" alt=""></div>
-          <h3 class="ctitle">Conexão em 1 clique</h3>
-          <p class="cdesc">O botão abre o <b>Hiddify</b> já com a config do servidor <b>MTH PROXY</b> preenchida. É só conectar e abrir o jogo.</p>
-          <button class="btn cbtn" id="openHiddify">Abrir no Hiddify</button>
-          <div class="cfoot">
-            <a class="flink2" id="hiddifyLink" target="_blank" rel="noopener noreferrer">Baixar o app</a>
-            <span class="sep">·</span>
-            <button class="flink2" id="copyCfg" type="button">Copiar config</button>
-          </div>
-        </div>
-      </div>
-    </section>
+    <span class="badge" id="status">PRONTO</span>
   </div>
+
+  <!-- ABA FUNÇÕES -->
+  <section id="tab-func">
+    <div class="sect">
+      <span class="lbl">Funções</span>
+
+      <!-- AIMBOT -->
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Aimbot</div>
+            <div class="card-desc">Trava a mira no inimigo</div>
+          </div>
+          <div class="sw" id="sw_aim" role="switch" aria-checked="false"></div>
+        </div>
+        <div class="dropdown-wrap" id="aim-options">
+          <div class="dropdown-label">Onde a mira trava</div>
+          <select class="select" id="aim-part">
+            <option value="0">Cabeça</option>
+            <option value="1" selected>Pescoço</option>
+            <option value="2">Peito</option>
+          </select>
+          <div class="note" id="head-note">A opção Cabeça pode dar dano fake em inimigo parado.</div>
+        </div>
+      </div>
+
+      <!-- MARCAR JOGADORES -->
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Marcar Jogadores</div>
+            <div class="card-desc">Mostra a posição dos inimigos</div>
+          </div>
+          <div class="sw" id="sw_esp" role="switch" aria-checked="false"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABA CONECTAR -->
+  <section id="tab-tut" class="hidden">
+    <div class="sect">
+      <span class="lbl">Conectar</span>
+      <div class="connect">
+        <img src="logo.png" alt="">
+        <h3>Conexão em 1 clique</h3>
+        <p>O botão abre o <b>Hiddify</b> já com a config do servidor <b>MTH PROXY</b>. Conecte e abra o jogo.</p>
+        <button class="btn" id="openHiddify">Abrir no Hiddify</button>
+        <div class="links">
+          <a id="hiddifyLink" href="#" target="_blank" rel="noopener">Baixar o app</a>
+          <span class="sep">·</span>
+          <button type="button" id="copyCfg">Copiar config</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div>
 
 <!-- NAV -->
-<div id="nav" class="nav">
-  <div class="tab on" data-t="func"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M6 20v-10M18 20V8M6 10 12 4l6 4"/></svg>Funções</div>
-  <div class="tab" data-t="tut"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/></svg>Conectar</div>
-</div>
+<nav class="nav" id="nav">
+  <div class="tab on" data-t="func">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M6 20v-10M18 20V8M6 10 12 4l6 4"/></svg>
+    Funções
+  </div>
+  <div class="tab" data-t="tut">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/></svg>
+    Conectar
+  </div>
+</nav>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const $=s=>document.querySelector(s);
-const api=(p,o={})=>fetch(p,{...o,headers:{'content-type':'application/json','x-mth':'1',...(o.headers||{})},cache:'no-store'});
-let toastT=null;
-function toast(m,err){const t=$('#toast');t.textContent=m;t.className='toast show'+(err?' e':'');clearTimeout(toastT);toastT=setTimeout(()=>t.className='toast',1900);}
+const $ = s => document.querySelector(s);
+const api = (p, o = {}) => fetch(p, {
+  ...o,
+  headers: { 'content-type': 'application/json', 'x-mth': '1', ...(o.headers || {}) },
+  cache: 'no-store'
+});
 
-/* parallax suave dos blobs */
-(function(){const st=$('#stage');if(!st)return;const bs=[...st.children];
-addEventListener('mousemove',e=>{const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;
-bs.forEach((b,i)=>{const s=(i+1)*10;b.style.marginLeft=(x*s)+'px';b.style.marginTop=(y*s)+'px';});},{passive:true});})();
-
-let ffActive=false;
-function updateFF(){const b=$('#openFF');if(b)b.classList.toggle('show',ffActive&&!$('#tab-func').classList.contains('hidden'));}
-function paint(st){
-  $('#khint').textContent=st.hint||'SEM KEY';
-  $('#sw_esp').classList.toggle('on',!!st.esp_moco);
-  $('#sw_aim').classList.toggle('on',!!st.aim_collider);
-  $('#parts').classList.toggle('open',!!st.aim_collider);
-  document.querySelectorAll('.pill').forEach(p=>p.classList.toggle('act',(+p.dataset.p)===(+st.ac_part)));
-  $('#cabnote').classList.toggle('on',(+st.ac_part)===0);
-  ffActive=!!(st.esp_moco||st.aim_collider);updateFF();
+let toastT = null;
+function toast(msg, err) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (err ? ' err' : '');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.className = 'toast', 1800);
 }
-async function send(feature,value,el){
-  if(el&&el.classList.contains('busy'))return;
-  if(el)el.classList.add('busy');
-  try{
-    const r=await api('api/toggle',{method:'POST',body:JSON.stringify({feature,value})});
-    if(!r.ok)throw 0;
+
+function paint(st) {
+  $('#status').textContent = st.hint || 'PRONTO';
+
+  const aimOn = !!st.aim_collider;
+  $('#sw_aim').classList.toggle('on', aimOn);
+  $('#sw_aim').setAttribute('aria-checked', aimOn);
+  $('#aim-options').classList.toggle('open', aimOn);
+
+  const part = +(st.ac_part ?? 1);
+  $('#aim-part').value = String(part);
+  $('#head-note').classList.toggle('show', part === 0);
+
+  const espOn = !!st.esp_moco;
+  $('#sw_esp').classList.toggle('on', espOn);
+  $('#sw_esp').setAttribute('aria-checked', espOn);
+}
+
+async function send(feature, value, el) {
+  if (el && el.classList.contains('busy')) return;
+  if (el) el.classList.add('busy');
+  try {
+    const r = await api('api/toggle', {
+      method: 'POST',
+      body: JSON.stringify({ feature, value })
+    });
+    if (!r.ok) throw 0;
     paint(await r.json());
-  }catch(e){toast('falha ao salvar',1);}
-  finally{if(el)el.classList.remove('busy');}
-}
-$('#sw_esp').addEventListener('click',()=>send('esp_moco',!$('#sw_esp').classList.contains('on'),$('#sw_esp')));
-$('#sw_aim').addEventListener('click',()=>send('aim_collider',!$('#sw_aim').classList.contains('on'),$('#sw_aim')));
-document.querySelectorAll('.pill').forEach(p=>p.addEventListener('click',()=>send('ac_part',+p.dataset.p,null)));
-
-document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
-  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));
-  const func=t.dataset.t==='func';
-  $('#tab-func').classList.toggle('hidden',!func);
-  $('#tab-tut').classList.toggle('hidden',func);
-  updateFF();
-}));
-
-let cfgLoaded=false;
-async function loadCfg(){
-  if(cfgLoaded)return;
-  try{const r=await api('api/config');if(!r.ok)return;const j=await r.json();
-    $('#hiddifyLink').href=j.hiddify;$('#copyCfg').dataset.v=j.vless;cfgLoaded=true;}catch(e){}
-}
-$('#copyCfg').addEventListener('click',async()=>{
-  const v=$('#copyCfg').dataset.v||'';if(!v)return;
-  try{await navigator.clipboard.writeText(v);}catch(e){const t=document.createElement('textarea');t.value=v;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();}
-  const b=$('#copyCfg');b.classList.add('ok');b.innerHTML='Copiado ✓';toast('config copiada');setTimeout(()=>{b.classList.remove('ok');b.innerHTML='Copiar config';},1600);
-});
-$('#openHiddify').addEventListener('click',async()=>{
-  const b=$('#openHiddify');if(b.dataset.busy)return;b.dataset.busy='1';
-  try{
-    const r=await api('api/importlink');
-    const j=await r.json().catch(()=>({}));
-    if(j.link){toast('abrindo o Hiddify…');location.href=j.link;}
-    else toast('erro ao gerar o link',1);
-  }catch(e){toast('erro de conexão',1);}
-  finally{setTimeout(()=>{b.dataset.busy='';},1500);}
-});
-
-async function boot(){
-  try{
-    const r=await api('api/state');
-    if(r.ok){
-      const st=await r.json();
-      paint(st);
-    } else {
-      // fallback local state when backend not present
-      paint({hint:'SEM KEY',esp_moco:false,aim_collider:false,ac_part:1});
-    }
-    loadCfg();
-  }catch(e){
-    paint({hint:'SEM KEY',esp_moco:false,aim_collider:false,ac_part:1});
+  } catch (e) {
+    toast('Falha ao salvar', true);
+  } finally {
+    if (el) el.classList.remove('busy');
   }
 }
+
+// toggles
+$('#sw_aim').addEventListener('click', () => {
+  const next = !$('#sw_aim').classList.contains('on');
+  send('aim_collider', next, $('#sw_aim'));
+});
+$('#sw_esp').addEventListener('click', () => {
+  const next = !$('#sw_esp').classList.contains('on');
+  send('esp_moco', next, $('#sw_esp'));
+});
+
+// dropdown de parte do corpo
+$('#aim-part').addEventListener('change', () => {
+  const val = +$('#aim-part').value;
+  send('ac_part', val, null);
+  $('#head-note').classList.toggle('show', val === 0);
+});
+
+// nav
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.toggle('on', x === t));
+    const isFunc = t.dataset.t === 'func';
+    $('#tab-func').classList.toggle('hidden', !isFunc);
+    $('#tab-tut').classList.toggle('hidden', isFunc);
+  });
+});
+
+// config / hiddify
+let cfgLoaded = false;
+async function loadCfg() {
+  if (cfgLoaded) return;
+  try {
+    const r = await api('api/config');
+    if (!r.ok) return;
+    const j = await r.json();
+    if (j.hiddify) $('#hiddifyLink').href = j.hiddify;
+    if (j.vless) $('#copyCfg').dataset.v = j.vless;
+    cfgLoaded = true;
+  } catch (e) {}
+}
+
+$('#copyCfg').addEventListener('click', async () => {
+  const v = $('#copyCfg').dataset.v || '';
+  if (!v) {
+    toast('Config ainda não carregou', true);
+    return;
+  }
+  try {
+    await navigator.clipboard.writeText(v);
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = v;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+  }
+  toast('Config copiada');
+});
+
+$('#openHiddify').addEventListener('click', async () => {
+  const b = $('#openHiddify');
+  if (b.classList.contains('busy')) return;
+  b.classList.add('busy');
+  try {
+    const r = await api('api/importlink');
+    const j = await r.json().catch(() => ({}));
+    if (j.link) {
+      toast('Abrindo Hiddify…');
+      location.href = j.link;
+    } else {
+      toast('Erro ao gerar link', true);
+    }
+  } catch (e) {
+    toast('Erro de conexão', true);
+  } finally {
+    setTimeout(() => b.classList.remove('busy'), 1200);
+  }
+});
+
+// boot
+async function boot() {
+  try {
+    const r = await api('api/state');
+    if (r.ok) {
+      paint(await r.json());
+    } else {
+      paint({ hint: 'PRONTO', aim_collider: false, esp_moco: false, ac_part: 1 });
+    }
+  } catch (e) {
+    paint({ hint: 'PRONTO', aim_collider: false, esp_moco: false, ac_part: 1 });
+  }
+  loadCfg();
+}
 boot();
-setInterval(()=>{
-  api('api/state').then(r=>r.ok?r.json().then(paint):null).catch(()=>{});
-},9000);
+
+setInterval(() => {
+  api('api/state')
+    .then(r => r.ok ? r.json().then(paint) : null)
+    .catch(() => {});
+}, 9000);
 </script>
 </body>
 </html>
